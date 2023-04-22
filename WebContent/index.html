@@ -16,7 +16,7 @@
 
 
 	<div id="inicio" class="container-fluid table" >
-		<h4>Lista dos Funcionários</h4>
+		<h4>Lista dos Funcionários - PEDRO</h4>
 		<table>
 		  <tr>
 			<th>Nome</th>
@@ -34,7 +34,7 @@
 			  <td>{{ funcionario.salario }}</td> 
 			  <td>{{ funcionario.email }}</td> 
 			  <td>{{ funcionario.idade }}</td>
-			  <td><span @click="">&#9998;</span>
+			  <td><span @click="clickEdit(funcionario.id)">&#9998;</span>
 				<span  @click="">&#10006;</span>
 			  </td>
 			</tr>

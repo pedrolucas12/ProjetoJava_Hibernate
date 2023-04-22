@@ -76,7 +76,7 @@ public class FuncionarioDAO {
 		EntityManager em = HibernateUtil.getEntityManager();
 		List<Funcionario> Funcionarios = new ArrayList<>();
 		try {
-			Query query = em.createQuery("FROM Funcionario f join fetch f.setor ");
+			Query query = em.createQuery("SELECT f FROM Funcionario f join fetch f.setor ");
 			Funcionarios = query.getResultList();
 		} catch (Exception e) {
 			em.getTransaction().rollback();

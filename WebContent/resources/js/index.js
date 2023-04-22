@@ -1,7 +1,8 @@
 var inicio = new Vue({
 	el:"#inicio",
     data: {
-        lista: []
+        lista: [],
+        id: null,
     },
     created: function(){
         let vm =  this;
@@ -11,7 +12,7 @@ var inicio = new Vue({
 	//Busca os itens para a lista da primeira página
         listarFuncionarios: function(){
 			const vm = this;
-			axios.get("/funcionarios/rest/funcionarios/listar")
+			axios.get("rest/funcionarios/listar")
 			.then(response => {vm.lista = response.data;
 			}).catch(function (error) {
 				vm.mostraAlertaErro("Erro interno", "Não foi possível listar os itens");
@@ -21,6 +22,11 @@ var inicio = new Vue({
 		mostraAlertaErro: function(erro, mensagem){
 			console.log(erro);
 			alert(mensagem);
+		},
+		clickEdit: function(id){
+			console.log(id);
+			window.location.href = 'http://localhost:8080/funcionarios/pages/novo-funcionario.html';
 		}
+		
     }
 });
