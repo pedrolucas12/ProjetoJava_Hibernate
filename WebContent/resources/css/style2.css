@@ -24,6 +24,12 @@ h4 {
     margin-bottom: 20px;
 }
 
+a { 
+	font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -75,6 +81,7 @@ form input[type="email"] {
     margin-bottom: 20px;
     font-size: 16px;
 }
+
 
 form input[type="submit"] {
     background-color: var(--primary-color);
