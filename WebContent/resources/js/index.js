@@ -24,9 +24,8 @@ var inicio = new Vue({
 			alert(mensagem);
 		},
 		clickEdit: function(id){
-			console.log(id);
-			window.location.href = 'http://localhost:8080/funcionarios/pages/novo-funcionario.html';
+		    console.log(id);
+		    window.location.href = 'http://localhost:8080/funcionarios/pages/novo-funcionario.html?id=' + id;
 		}
-		
     }
 });
