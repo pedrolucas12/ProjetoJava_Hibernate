@@ -23,14 +23,9 @@ var inicio = new Vue({
 			console.log(erro);
 			alert(mensagem);
 		},
-		clickEdit: function(){
-		    window.location.href = 'http://localhost:8080/funcionarios/pages/novo-funcionario.html';
+		alterarFuncionario: function(id){
+		    window.location.href = 'http://localhost:8080/funcionarios/pages/novo-funcionario.html?id='+id;
 		},
-		editButton: function(funcionario){
-		
-		    window.location.href = 'http://localhost:8080/funcionarios/pages/edit-funcionario.html';
-		},
-		
 		deletarFuncionario: function(id){
 	        const vm = this;
 	        console.log('id do funcionário a ser excluído:', id);
@@ -41,6 +36,9 @@ var inicio = new Vue({
 	            vm.mostraAlertaErro("Erro interno", "Não foi possível excluir o funcionário");
 	        }).finally(function() {
         });
-    }
+    	},
+		clickSave: function(){
+			 window.location.href = 'http://localhost:8080/funcionarios/pages/novo-funcionario.html';
+		},	
 		}
 });

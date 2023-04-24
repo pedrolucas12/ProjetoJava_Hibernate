@@ -60,6 +60,27 @@ public class FuncionarioService {
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao salvar funcionário: " + e.getMessage()).build();
         }
     }
+    
+    @Path("/find/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response funcionarioFind(@PathParam("id") String userId) {
+		FuncionarioDto dto = new FuncionarioDto();
+    	try {
+    		Funcionario func =  dao.find(Integer.parseInt(userId));
+    		dto.setId(func.getId().longValue());
+    		dto.setNome(func.getNome());
+    		dto.setIdade(func.getId());
+    		dto.setEmail(func.getEmail());
+    		dto.setSalario(func.getSalario().toString());
+    		dto.setSetor(func.getSetor().getId());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao procurar funcionário: " + e.getMessage()).build();
+        }
+        return Response.status(Status.OK).entity(dto).build();
+    }
 
     private Setor buscarSetor(Integer setorId) {
     	try {
@@ -103,8 +124,22 @@ public class FuncionarioService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PUT
-    public Response funcionarioUpdate(Funcionario funcionario) {
-        return Response.status(Status.NOT_IMPLEMENTED).build();
+    public Response funcionarioUpdate(FuncionarioDto funcionario) {
+    	FuncionarioDto dto = new FuncionarioDto();
+    	try {
+    		Funcionario func =  dao.find(Integer.parseInt(funcionario.getId().toString()));
+    		dto.setId(func.getId().longValue());
+    		dto.setNome(func.getNome());
+    		dto.setIdade(func.getId());
+    		dto.setEmail(func.getEmail());
+    		dto.setSalario(func.getSalario().toString());
+    		dto.setSetor(func.getSetor().getId());
+    		dao.update(func);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao procurar funcionário: " + e.getMessage()).build();
+        }
+        return Response.status(Status.OK).entity(dto).build();
     }
 
     /**

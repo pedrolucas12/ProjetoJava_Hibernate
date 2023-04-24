@@ -1,7 +1,7 @@
 var inicio = new Vue({
 	el:"#cadastro",
     data: {
-        id: null,
+        id: '',
         form: {
 			id: null,
 			nome: '',
@@ -11,9 +11,20 @@ var inicio = new Vue({
 			idade: null
 		},
 		funcionario: null,
-		setores: []
+		setores: [],
+		edicao: false
     },
-      created: function(){
+    mounted: function() {
+		let vm =  this;
+        vm.id = window.location.search.substring(4);
+        if(vm.id.length > 0){
+			vm.edicao = true;
+			vm.findUser(vm.id);
+		} else {
+			vm.edicao = false;
+		}
+	},
+  	created: function(){
         let vm =  this;
         vm.listarSetores();
     },
@@ -24,12 +35,10 @@ var inicio = new Vue({
 		},
 		clickSave: function(){
 			const vm = this;
-			console.log("aqui0", vm.form);
-			console.log("aqui1", vm.$refs.form);
-			console.log("aqui0", this.$refs.form.submit());
 			axios.post("http://localhost:8080/funcionarios/rest/funcionarios/salvar", vm.form)
 			.then(response => {
 				vm.funcionario = response.data;
+				window.location.href = 'http://localhost:8080/funcionarios/index.html';
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -43,6 +52,27 @@ var inicio = new Vue({
 			}).catch(function (error) {
 				vm.mostraAlertaErro("Erro interno", "Não foi possível listar os itens");
 			}).finally(function() {
+			});
+		},
+		findUser: function(id) {
+			const vm = this;
+			axios.get(`http://localhost:8080/funcionarios/rest/funcionarios/find/${id}`)
+			.then(response => {
+				vm.form = response.data;
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		},
+		clickEdit: function(){
+			const vm = this;
+			axios.put("http://localhost:8080/funcionarios/rest/funcionarios/atualizar", vm.form)
+			.then(response => {
+				vm.funcionario = response.data;
+				window.location.href = 'http://localhost:8080/funcionarios/index.html';
+			})
+			.catch(function (error) {
+				console.log(error);
 			});
 		},
     }

@@ -36,13 +36,13 @@
 			  <td>{{ funcionario.salario }}</td> 
 			  <td>{{ funcionario.email }}</td> 
 			  <td>{{ funcionario.idade }}</td>
-			  <td><span @click="editButton(funcionario)">&#9998;</span>
+			  <td><span @click="alterarFuncionario(funcionario.id)">&#9998;</span>
 				<span  @click="deletarFuncionario(funcionario.id)">&#10006;</span>
 			  </td>
 			</tr>
 		  </tbody>
 		</table>
-		<button @click="clickEdit()"> Criar Funcionário + </button>
+		<button @click="clickSave()"> Criar Funcionário + </button>
 	  </div>
 
 	<script src="resources/js/vue.js"></script>

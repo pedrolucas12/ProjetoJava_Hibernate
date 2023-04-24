@@ -14,11 +14,10 @@
 <a href="/funcionarios/index.html">Voltar</a>
 <div id="cadastro">
 		<div id="inicio" class="container-fluid table" >
-			<h4>Cadastro de funcionário</h4>
-			<p>Implementar o cadastro de funcionários</p>	
-			<p>{{id}}</p>
+			<h4 v-if="!edicao">Cadastro de funcionário</h4>
+			<h4 v-if="edicao">Edição de funcionário</h4>
 	  	</div>
-		<form @submit.prevent="clickSave()" ref="form">
+		<form ref="form">
 			<input type="text" id="id" name="id" v-model="form.id" hidden>
 			<label for="nome">Nome:</label>
 			<input type="text" id="nome" name="nome" v-model="form.nome" required>
@@ -37,7 +36,8 @@
 			<label for="idade">Idade:</label>
 			<input type="number" id="idade" name="idade" v-model="form.idade" required>
 			<br>
-			<button type="submit" class="btn btn-success">Salvar</button>
+			<button @click="clickSave()" v-if="!edicao" class="btn btn-success">Salvar</button>
+			<button @click="clickEdit()" v-if="edicao" class="btn btn-success"> Editar</button>
 	</form>	
 	
 </div>
