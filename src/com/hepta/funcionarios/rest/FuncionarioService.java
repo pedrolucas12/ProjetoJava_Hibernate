@@ -16,16 +16,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.hepta.funcionarios.dto.FuncionarioDto;
 import com.hepta.funcionarios.entity.Funcionario;
+import com.hepta.funcionarios.entity.Setor;
 import com.hepta.funcionarios.persistence.FuncionarioDAO;
+import com.hepta.funcionarios.persistence.SetorDAO;
 
 @Path("/funcionarios")
 public class FuncionarioService {
 
     private FuncionarioDAO dao;
 
+    private SetorDAO setorDao;
+    
     public FuncionarioService() {
         dao = new FuncionarioDAO();
+        setorDao = new SetorDAO();
     }
 
     /**
@@ -35,21 +41,36 @@ public class FuncionarioService {
      * @return response 200 (OK) - Conseguiu adicionar
      */
     @Path("/salvar")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @POST
-    public Response funcionarioCreate(Funcionario funcionario) {
+    public Response funcionarioCreate(FuncionarioDto dto) {
         try {
+        	Funcionario funcionario = new Funcionario();
+        	funcionario.setNome(dto.getNome());
+        	Setor setor = buscarSetor(dto.getSetor());
+        	funcionario.setSetor(setor);
+        	funcionario.setSalario(Double.parseDouble(dto.getSalario()));
+        	funcionario.setEmail(dto.getEmail());
+        	funcionario.setIdade(dto.getIdade());
+        	
             dao.save(funcionario);
+            return Response.status(Status.OK).build();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao salvar funcionário: " + e.getMessage()).build();
         }
-
-        return Response.status(Status.OK).build();
     }
 
-    /**
+    private Setor buscarSetor(Integer setorId) {
+    	try {
+            return setorDao.find(setorId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return null;
+	}
+
+	/**
      * Lista todos os Funcionarios
      * 
      * @return response 200 (OK) - Conseguiu listar

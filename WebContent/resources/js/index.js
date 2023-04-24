@@ -25,6 +25,10 @@ var inicio = new Vue({
 		},
 		clickEdit: function(){
 		    window.location.href = 'http://localhost:8080/funcionarios/pages/novo-funcionario.html';
+		},
+		editButton: function(funcionario){
+		
+		    window.location.href = 'http://localhost:8080/funcionarios/pages/edit-funcionario.html';
+		},
 		}
-    }
 });

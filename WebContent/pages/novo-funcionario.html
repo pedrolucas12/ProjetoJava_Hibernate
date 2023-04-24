@@ -19,24 +19,26 @@
 			<p>{{id}}</p>
 	  	</div>
 		<form @submit.prevent="clickSave()" ref="form">
-		  <label for="nome">Nome:</label>
-		  <input type="text" id="nome" name="nome" v-model="form.nome" required>
-		  <br>
-		  <label for="setor">Setor:</label>
-		  <input type="number" id="setor" name="setor" v-model="form.setor"  required>
-		  <br>
-		  <br>
-		  <label for="salario">Salário:</label>
-		  <input type="number" id="salario" name="salario" v-model="form.salario"  required>
-		  <br>
-		  <label for="email">E-mail:</label>
-		  <input type="email" id="email" name="email" v-model="form.email" required>
-		  <br>
-		  <label for="idade">Idade:</label>
-		  <input type="number" id="idade" name="idade" v-model="form.idade" required>
-		  <br>
-		  <button type="submit" class="btn btn-success">Salvar</button>
-	</form>
+			<input type="text" id="id" name="id" v-model="form.id" hidden>
+			<label for="nome">Nome:</label>
+			<input type="text" id="nome" name="nome" v-model="form.nome" required>
+			<br>
+			<label for="setor">Setor:</label>
+			 <select class="form-control" v-model="form.setor">
+			    <option v-for="option in setores" v-bind:value="option.id" >{{ option.nome }}</option>
+			 </select>
+			<br>
+			<label for="salario">Salário:</label>
+			<input type="number" id="salario" name="salario" v-model="form.salario"  required>
+			<br>
+			<label for="email">E-mail:</label>
+			<input type="email" id="email" name="email" v-model="form.email" required>
+			<br>
+			<label for="idade">Idade:</label>
+			<input type="number" id="idade" name="idade" v-model="form.idade" required>
+			<br>
+			<button type="submit" class="btn btn-success">Salvar</button>
+	</form>	
 	
 </div>
 	<script src="../resources/js/vue.js"></script>

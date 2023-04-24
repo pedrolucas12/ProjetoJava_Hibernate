@@ -3,13 +3,19 @@ var inicio = new Vue({
     data: {
         id: null,
         form: {
+			id: null,
 			nome: '',
 			setor: null,
 			salario: null,
 			email: '',
 			idade: null
 		},
-		funcionario: null
+		funcionario: null,
+		setores: []
+    },
+      created: function(){
+        let vm =  this;
+        vm.listarSetores();
     },
     methods:{
 		mostraAlertaErro: function(erro, mensagem){
@@ -28,6 +34,16 @@ var inicio = new Vue({
 			.catch(function (error) {
 				console.log(error);
 			});
-		}
+		},
+		listarSetores: function(){
+			const vm = this;
+			axios.get("http://localhost:8080/funcionarios/rest/setor/listar")
+			.then(response => {
+				vm.setores = response.data;
+			}).catch(function (error) {
+				vm.mostraAlertaErro("Erro interno", "Não foi possível listar os itens");
+			}).finally(function() {
+			});
+		},
     }
 });
