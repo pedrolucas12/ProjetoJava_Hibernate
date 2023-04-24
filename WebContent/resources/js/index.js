@@ -30,5 +30,17 @@ var inicio = new Vue({
 		
 		    window.location.href = 'http://localhost:8080/funcionarios/pages/edit-funcionario.html';
 		},
+		
+		deletarFuncionario: function(id){
+	        const vm = this;
+	        console.log('id do funcionário a ser excluído:', id);
+	        axios.delete(`rest/funcionarios/deletar/${id}`)
+	        .then(response => {
+	            vm.listarFuncionarios(); // atualiza a lista de funcionários
+	        }).catch(function (error) {
+	            vm.mostraAlertaErro("Erro interno", "Não foi possível excluir o funcionário");
+	        }).finally(function() {
+        });
+    }
 		}
 });

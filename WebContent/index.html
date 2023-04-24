@@ -37,7 +37,7 @@
 			  <td>{{ funcionario.email }}</td> 
 			  <td>{{ funcionario.idade }}</td>
 			  <td><span @click="editButton(funcionario)">&#9998;</span>
-				<span  @click="">&#10006;</span>
+				<span  @click="deletarFuncionario(funcionario.id)">&#10006;</span>
 			  </td>
 			</tr>
 		  </tbody>
